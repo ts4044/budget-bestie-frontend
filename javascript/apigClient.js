@@ -83,6 +83,42 @@ apigClientFactory.newClient = function (config) {
     
     
     
+    apigClient.dashboardStatsGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var dashboardStatsGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/dashboard/stats').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['username']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(dashboardStatsGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.receiptsListGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username', 'id'], ['body']);
+        
+        var receiptsListGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/receipts/list').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['username', 'id']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(receiptsListGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.receiptsUploadPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
