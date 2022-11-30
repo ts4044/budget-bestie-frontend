@@ -13,6 +13,7 @@
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/6f37e727c4.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Dashboard</title>
 
   <style>
@@ -70,6 +71,11 @@
       <hr>
     </div>
   </main>
+  
+  <div>
+    <canvas id="dashboard_chart"></canvas>
+  </div>
+
   <div class="box_button">
     <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
       <i class="fa-solid fa-plus"></i>
@@ -119,7 +125,6 @@
     </div>
   </div>
 
-
   <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
   <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
   <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
@@ -139,6 +144,7 @@
   <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
   <script type="text/javascript" src="./javascript/app.js"></script>
   <script type="text/javascript" src="./javascript/fileupload.js"></script>
+  <script type="text/javascript" src="./javascript/drawGraph.js"></script>
   </body>
 
 </html>
