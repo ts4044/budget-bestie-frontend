@@ -41,40 +41,44 @@
 
 <body">
   <main>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <div id="username_sidebar"></div>
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-          <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
-        </ul>
+    <div class="d-flex flex-row">
+      <!-- sidebar-left -->
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <div id="username_sidebar"></div>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
+          </ul>
+        </div>
+        <hr>
+        <div class="flex-column mb-auto">
+          <button class="normal-button active w-100" onclick="navToDashboard()">
+            <i class="fas fa-house me-2"></i>
+            Dashboard
+          </button>
+          <br />
+          <button class="normal-button w-100" onclick="navToReceipts()">
+            <i class="fas fa-receipt me-2"></i>
+            Receipts
+          </button>
+          <br />
+          <button class="normal-button w-100" onclick="navToSpendings()">
+            <i class="fa-solid fa-dollar-sign me-2"></i>
+            Spendings
+          </button>
+        </div>
+        <hr>
       </div>
-      <hr>
-      <div class="flex-column mb-auto">
-        <button class="normal-button active w-100" onclick="navToDashboard()">
-          <i class="fas fa-house me-2"></i>
-          Dashboard
-        </button>
-        <br />
-        <button class="normal-button w-100" onclick="navToReceipts()">
-          <i class="fas fa-receipt me-2"></i>
-          Receipts
-        </button>
-        <br />
-        <button class="normal-button w-100" onclick="navToSpendings()">
-          <i class="fa-solid fa-dollar-sign me-2"></i>
-          Spendings
-        </button>
-      </div>
-      <hr>
+      <!-- Dashboard graph -->
+      <div class="d-flex flex-row flex-shrink-0 p-3">
+        <canvas id="dashboard_chart"></canvas>
+      </div>      
     </div>
   </main>
-  
-  <div>
-    <canvas id="dashboard_chart"></canvas>
-  </div>
+
 
   <div class="box_button">
     <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
