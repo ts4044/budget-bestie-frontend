@@ -112,48 +112,15 @@ window.onload = () => {
       document.getElementById("username_sidebar").innerHTML = cognitoUser["username"];
     }
   }
-  // added
-    // range is temp var for testing
+
+  /***** newly added *****/
+  // range can be: "day", "week", "month"
   var range = "month";
-  var stat = getDashboardStat(range);
-  console.log(stat);
-}
-
-//temp space... putting the api call here
-async function getDashboardStat(range) {
-  var cognitoUser = userPool.getCurrentUser();
-  var apigClient = apigClientFactory.newClient();
-
-  var body= {}
-  var params = {
-      'Content-Type': 'application/json',
-      'x-api-key': 'uKo9wX1Uzb5JvLDsjl6ui7Gy8l4qFLe9Pl5SMigg',
-      username: cognitoUser["username"],
-      Accept: '*/*',
-  };
-  console.log(params);
-  var additionalParams = {};
-  console.log("getDashboardStat called");
-  
-  return new Promise(
-    function (resolve, reject){
-      var result = apigClient.dashboardStatsGet(params, body, additionalParams) 
-        .then(
-          function (res){
-            if (res.status == 200) {
-                console.log(res.data);
-                // range can be "day", "week", "month", shall be input from onload
-                graph_dashboard(res.data,range);
-            } else {
-                alert("unsuccessful dashboardStatGet call");
-            }
-          },
-          (error)=>{
-            reject(error);
-          }
-        )
-      resolve(result);
-      return result;
+  // returns a promise
+  var stat = getDashboardStat();
+  // .then to access the promise object, draw graph
+  stat.then(res=>{
+    // range can be "day", "week", "month", shall be input from onload
+    graph_dashboard(res,range);
   });
-};
-
+}

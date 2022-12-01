@@ -1,3 +1,32 @@
+
+async function getDashboardStat() {
+  var cognitoUser = userPool.getCurrentUser();
+  var apigClient = apigClientFactory.newClient();
+
+  var body= {}
+  var params = {
+      'Content-Type': 'application/json',
+      'x-api-key': 'uKo9wX1Uzb5JvLDsjl6ui7Gy8l4qFLe9Pl5SMigg',
+      username: cognitoUser["username"],
+      Accept: '*/*',
+  };
+  console.log(params);
+  var additionalParams = {};
+
+  var apiCall = await apigClient.dashboardStatsGet(params, body, additionalParams) 
+    .then(function(res) {
+      if(res.status == 200){
+        console.log("getDashboardStat: ");
+        console.log(res.data);
+        // return only the meat of the response: data
+        return res.data;
+      }else{
+        alert("unsuccessful dashboardStatGet call");
+      }}
+    );
+  return apiCall;  
+};
+
 function graph_dashboard(result,range){
     console.log("Graphing func called");
     console.log(result);
@@ -16,12 +45,14 @@ function graph_dashboard(result,range){
       type = 'line';
       date_start = Math.max((result.day -7 +1),1); // +1 to inlcude current/today
       date_end = result.day;
+      if (date_end<3){type="bar"}; //just looks better when having few datapoints
       data_point = result.total_this_week_daily;  
     }else if(range =="month"){
       // data_pt_desc = "Monthly Spending";
       type = 'line';
       date_start = 1; // month always start with 1st
       date_end = result.day;
+      if (date_end<3){type="bar"}; //just looks better when having few datapoints
       data_point = result.total_this_month_daily;  
     }
   
@@ -38,7 +69,8 @@ function graph_dashboard(result,range){
           borderColor: '#0B6E4F',
           borderWidth: 2,
           data: data_point
-        }]
+        }
+        ]
       },
       options: {
         scales: {
