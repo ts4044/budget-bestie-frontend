@@ -122,5 +122,7 @@ window.onload = () => {
   stat.then(res=>{
     // range can be "day", "week", "month"
     graph_dashboard(res,range);
+    graph_dashboard_activity(res);
+    fill_dashboard_summary(res);
   });
 }
