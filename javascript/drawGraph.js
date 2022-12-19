@@ -1,3 +1,4 @@
+/** Spending **/
 function display_spending_timeframe(period){
   // update #spending_timeframe first
   document.getElementById('spending_timeframe').innerHTML = period;
@@ -118,21 +119,10 @@ function graph_SpendingStat(result){
   var period = range;
   period = period.charAt(0).toUpperCase()+period.slice(1);
   document.querySelector("#spending_title").innerHTML = `${period} ${category} Spending`;
-
 }
-
-// function fill_spending(result){
-//   var category = result.category;
-//   var period = result.period;
-//   // formatting
-//   period = period.charAt(0).toUpperCase()+period.slice(1);
-    
-//   document.querySelector("#spending_title").innerHTML = `${period} ${category} Spending`;
-// }
-
-
-
 //-------------------------------------------------------------------------
+
+/** Dashboard **/
 async function getReceiptsDashboard() {
   var cognitoUser = userPool.getCurrentUser();
   var apigClient = apigClientFactory.newClient();
@@ -180,7 +170,6 @@ function fill_recent_receipts(result){
     document.getElementById('d_recentreceipts').innerHTML += recepitTemplate;
   }
 }
-//-------------------------------------------------------------------------------
 
 async function getDashboardStat() {
   var cognitoUser = userPool.getCurrentUser();
@@ -324,4 +313,5 @@ function graph_dashboard(result,range){
     document.querySelector("#d_spendweek").innerHTML = weekSpend;
     document.querySelector("#d_spendmonth").innerHTML = monthSpend;
   }
+//-------------------------------------------------------------------------------
 
