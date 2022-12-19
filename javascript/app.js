@@ -167,5 +167,19 @@ window.onload = () => {
     }
   }
   loadReceipts();
-}
 
+  /***** adding dashboard graph *****/
+  // range can be: "day", "week", "month", shall be input from user action
+  var range = "month";
+  // returns a promise
+  var stat = getDashboardStat();
+  // .then to access the promise object, draw graph
+  stat.then(res=>{
+    // range can be "day", "week", "month"
+    graph_dashboard(res,range);
+    graph_dashboard_activity(res);
+    fill_dashboard_summary(res);
+  });
+
+  var recent_receipts = getReceipts();
+}
