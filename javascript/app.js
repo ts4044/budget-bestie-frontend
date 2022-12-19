@@ -170,31 +170,28 @@ window.onload = () => {
   loadReceipts();
 
   /***** adding dashboard graph *****/
-  // range can be: "day", "week", "month", shall be input from user action
+  // range can be: "day", "week", "month",default "month" for dashboard
   var range = "month";
-  // returns a promise
+
   var stat = getDashboardStat();
-  // .then to access the promise object, draw graph
   stat.then(res=>{
     // range can be "day", "week", "month"
     graph_dashboard(res,range);
     graph_dashboard_activity(res);
     fill_dashboard_summary(res);
   });
-
+  // for Recent Receipts part
   var recent_receipts = getReceiptsDashboard();
   recent_receipts.then(res=>{
     fill_recent_receipts(res);
   });
 
-  /*** for spending page ***/
+  /*** for Spending page ***/
+  // default showing "monthly" & "All" when loaded
   var period = 'monthly'
   var category = 'All'
   var spendingStat = getSpendingStat(period,category);
   spendingStat.then(res=>{
     graph_SpendingStat(res);
-    // fill_spending(res);
   });
-
-
 }
