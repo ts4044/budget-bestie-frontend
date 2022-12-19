@@ -32,7 +32,7 @@ function fill_recent_receipts(result){
           <i class="fas fa-receipt me-2" style="color: #0B6E4F"></i>
         </div>
         <div class="col-8">
-          <h5 style="font-size: medium">$${title}</h5>
+          <h5 style="font-size: medium">${title}</h5>
         </div>
         <div class="col-3">
           <h5 style="font-size: medium">$${total}</h5>
