@@ -18,6 +18,7 @@ var myModalEl = document.getElementById('uploadbox')
 myModalEl.addEventListener('hide.bs.modal', function (event) {
     document.getElementById("upload-button").disabled = true;
     pond.removeFiles();
+    document.getElementById("upload_data").reset();
 });
 
 function uploadReceipt() {
@@ -57,9 +58,7 @@ function uploadReceipt(input) {
         filename: file.filename,
         filetype: file.type,
         image: encoded_image,
-
     }
-    console.log(body_data)
 
     var params = {
         'Content-Type': 'application/json',
@@ -77,6 +76,6 @@ function uploadReceipt(input) {
                 alert("Upload unsuccessful, try again later.");
             }
         });
-    
+
     $('#uploadbox').modal('hide');
 }

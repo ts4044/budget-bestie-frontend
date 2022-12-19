@@ -2,146 +2,139 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/6f37e727c4.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6f37e727c4.js" crossorigin="anonymous"></script>
 
-    <title>Dashboard</title>
+  <title>Receipts</title>
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-
-    <link href="./style/sidebars.css" rel="stylesheet">
-    <link href="./style/modal.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet" />
+  <link href="./style/sidebars.css" rel="stylesheet">
+  <link href="./style/modal.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet" />
 </head>
 
 <body>
-    <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-                    id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div id="username_sidebar"></div>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                    <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
-                </ul>
-            </div>
-            <hr>
-            <div class="flex-column mb-auto">
-                <button class="normal-button w-100" onclick="navToDashboard()">
-                    <i class="fas fa-house me-2"></i>
-                    Dashboard
-                </button>
-                <br />
-                <button class="normal-button active w-100" onclick="navToReceipts()">
-                    <i class="fas fa-receipt me-2"></i>
-                    Receipts
-                </button>
-                <br />
-                <button class="normal-button w-100" onclick="navToSpendings()">
-                    <i class="fa-solid fa-dollar-sign me-2"></i>
-                    Spendings
-                </button>
-            </div>
-            <hr>
+  <div class="container-fluid">
+    <div class="row flex-nowrap vh-100">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 border-end">
+        <div class="flex-column align-items-center align-items-sm-start px-3 pt-2 h-100">
+          <div class="dropdown pb-4">
+            <a href="#" class="align-items-center dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <div class="d-none d-sm-inline mx-1" id="username_sidebar"></div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
+              <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
+            </ul>
+          </div>
+
+          <hr>
+
+          <ul class="flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start list-unstyled" id="menu">
+            <li class="">
+              <button class="normal-button align-middle" onclick="navToDashboard()">
+                <i class="fas fa-house me-2"></i>
+                Dashboard
+              </button>
+            </li>
+            <button class="normal-button align-middle active" onclick="navToReceipts()">
+              <i class="fas fa-receipt me-2"></i>
+              Receipts
+            </button>
+            <br />
+            <button class="normal-button align-middle" onclick="navToSpendings()">
+              <i class="fa-solid fa-dollar-sign me-2"></i>
+              Spendings
+            </button>
         </div>
-    </main>
+      </div>
+      <div class="col py-3 scrollable">
+        <h1>
+          Receipts
+        </h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="receipts">
+        </div>
+      </div>
+    </div>
 
     <div class="box_button">
-        <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
-            <i class="fa-solid fa-plus"></i>
-        </button>
+      <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
+        <i class="fa-solid fa-plus"></i>
+      </button>
     </div>
-
     <div class="modal fade" id="uploadbox" tabindex="-1" aria-labelledby="uploadboxLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #0B6E4F; color: white">
-                    <h1 class="modal-title fs-5" id="uploadboxLabel">Add a Receipt</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #0B6E4F; color: white">
+            <h1 class="modal-title fs-5" id="uploadboxLabel">Add a Receipt</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body row">
+            <div class="col-md-6">
+              Enter Details
+              <form id="upload_data">
+                <div class="form-group">
+                  <label for="receipt_title" style="font-size: 75%;">Title</label>
+                  <input type="text" class="form-control" id="receipt_title" placeholder="Title" required>
                 </div>
-                <div class="modal-body row">
-                    <div class="col-md-6">
-                        Enter Details
-                        <form id="upload_data">
-                            <div class="form-group">
-                                <label for="receipt_title" style="font-size: 75%;">Title</label>
-                                <input type="text" class="form-control" id="receipt_title" placeholder="Title" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="category" style="font-size: 75%;">Tag</label>
-                                <select class="form-control" id="category" required>
-                                    <option></option>
-                                    <option>Entertainment</option>
-                                    <option>Food</option>
-                                    <option>Healthcare and Insurance</option>
-                                    <option>Housing</option>
-                                    <option>Miscellaneous</option>
-                                    <option>Transportation</option>
-                                    <option>Utilities</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="total" style="font-size: 75%;">Description</label>
-                                <input type="textarea" class="form-control" id="description" placeholder="Description"
-                                    rows="3">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <input id="file-upload" type="file" class="filepond">
-                        <button type="button" class="" id="upload-button" onclick="uploadReceipt()"
-                            disabled>Upload</button>
-                    </div>
+                <div class="form-group">
+                  <label for="category" style="font-size: 75%;">Tag</label>
+                  <select class="form-control" id="category" required>
+                    <option></option>
+                    <option>Entertainment</option>
+                    <option>Food</option>
+                    <option>Healthcare and Insurance</option>
+                    <option>Housing</option>
+                    <option>Miscellaneous</option>
+                    <option>Transportation</option>
+                    <option>Utilities</option>
+                  </select>
                 </div>
+                <div class="form-group">
+                  <label for="total" style="font-size: 75%;">Description</label>
+                  <input type="textarea" class="form-control" id="description" placeholder="Description" rows="3">
+                </div>
+              </form>
             </div>
+            <div class="col-md-6">
+              <input id="file-upload" type="file" class="filepond">
+              <button type="button" class="" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
 
-    <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
-    <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
-    <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
-    <script type="text/javascript" src="./javascript/lib/CryptoJS/components/hmac.js"></script>
-    <script type="text/javascript" src="./javascript/lib/CryptoJS/components/enc-base64.js"></script>
-    <script type="text/javascript" src="./javascript/lib/url-template/url-template.js"></script>
-    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/sigV4Client.js"></script>
-    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/apiGatewayClient.js"></script>
-    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/simpleHttpClient.js"></script>
-    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/utils.js"></script>
-    <script type="text/javascript" src="./javascript/apigClient.js"></script>
-    <script type="text/javascript" src="./javascript/amazon-cognito-identity.min.js"></script>
-    <script type="text/javascript" src="./javascript/config.js"></script>
+  <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/hmac.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/enc-base64.js"></script>
+  <script type="text/javascript" src="./javascript/lib/url-template/url-template.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/utils.js"></script>
+  <script type="text/javascript" src="./javascript/apigClient.js"></script>
+  <script type="text/javascript" src="./javascript/amazon-cognito-identity.min.js"></script>
+  <script type="text/javascript" src="./javascript/config.js"></script>
 
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-    <script type="text/javascript" src="./javascript/app.js"></script>
-    <script type="text/javascript" src="./javascript/fileupload.js"></script>
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+  <script type="text/javascript" src="./javascript/app.js"></script>
+  <script type="text/javascript" src="./javascript/fileupload.js"></script>
 </body>
 
 </html>

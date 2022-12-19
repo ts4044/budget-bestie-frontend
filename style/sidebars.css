@@ -1,10 +1,5 @@
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-
-html {
-  height: -webkit-fill-available;
+.scrollable {
+  overflow-y: auto
 }
 
 .sidebar {
@@ -19,32 +14,13 @@ html {
   border-right: 2px solid rgb(222, 222, 222);
 }
 
-.dropdown-toggle {
-  outline: 0;
-}
-
-.nav-flush .nav-link {
-  border-radius: 0;
-}
-
-.scrollarea {
-  overflow-y: auto;
-}
-
-.fw-semibold {
-  font-weight: 600;
-}
-
-.lh-tight {
-  line-height: 1.25;
-}
-
 .normal-button {
   padding: 10px;
   border-radius: 5px;
   border: none;
   background: none;
   color: rgb(0, 0, 0, 50%);
+  width: 100%;
 }
 
 .normal-button.active {
