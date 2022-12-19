@@ -30,8 +30,9 @@
       }
     }
 
-    .card i{
-      color: #0B6E4F;
+    .btn {
+      background-color: #0B6E4F;
+      border: 0;
     }
   </style>
 
@@ -57,7 +58,7 @@
         </div>
         <hr>
         <div class="flex-column mb-auto">
-          <button class="normal-button active w-100" onclick="navToDashboard()">
+          <button class="normal-button w-100" onclick="navToDashboard()">
             <i class="fas fa-house me-2"></i>
             Dashboard
           </button>
@@ -67,7 +68,7 @@
             Receipts
           </button>
           <br />
-          <button class="normal-button w-100" onclick="navToSpendings()">
+          <button class="normal-button active w-100" onclick="navToSpendings()">
             <i class="fa-solid fa-dollar-sign me-2"></i>
             Spendings
           </button>
@@ -77,102 +78,80 @@
   </main>
 
   <div class="container-md" style="margin-left: 200px">
-      <!-- Dashoard Summary icons -->
+      <!--Title line -->
     <div class="row">
-      <div class="d-flex justify-content-around mt-4">
-
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-dollar-sign"></i>
-            <p class="mb-0" id="d_budget"></p>
-            <p class="card-text" style="font-size: x-small">Under Budget</p>
-          </div>
-        </div>                
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-hashtag"></i>
-            <p class="mb-0" id="d_receipts"></p>
-            <p class="card-text" style="font-size: x-small">Receipts saved</p>
-          </div>
-        </div>  
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-magnifying-glass-dollar"></i>
-            <p class="mb-0" id="d_categories"></p>
-            <p class="card-text" style="font-size: x-small">Categories</p>
-          </div>
-        </div>  
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-calendar-day"></i>
-            <p class="mb-0" id="d_spendtoday"></p>
-            <p class="card-text" style="font-size: x-small">Spent Today</p>
-          </div>
-        </div>  
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-calendar-week"></i>
-            <p class="mb-0" id="d_spendweek"></p>
-            <p class="card-text" style="font-size: x-small">Spent this week </p>
-          </div>
-        </div>  
-        <div class="card text-center" style="width: 7rem; height: 6rem;">
-          <div class="card-body">
-            <i class="fas fa-calendar-days"></i>
-            <p class="mb-0" id="d_spendmonth"></p>
-            <p class="card-text" style="font-size: x-small">Spent this month</p>
-          </div>
-        </div>  
+      <div class="d-flex mt-4">
+        <h3 class="p-2" style="color:#0B6E4F">Spending</h3>
       </div>    
     </div>
 
-    <!-- Dashboard graph and calendar-->
+    <!-- Spending graph and Category list-->
     <div class="d-flex flex-row">
+        <!-- Timeframe -->
+        <div class="col-7 p-3">
+            <div class="row" style="background-color: #0B6E4F; border-radius: 5px;">
+            <div class="d-flex" >
+                <div hidden id="spending_timeframe" value="monthly">monthly</div>
+                <button class="btn btn-success" onclick="display_spending_timeframe('daily')">Daily</button>
+                <button class="btn btn-success" onclick="display_spending_timeframe('weekly')">Weekly</button>
+                <button class="btn btn-success" onclick="display_spending_timeframe('monthly')">Monthly</button>      
+            </div>    
+        </div>
 
-      <div class="col-7 p-3">
-        <h5>My Monthly Spending</h5>
-        <canvas id="dashboard_chart"></canvas>
-      </div>     
+        <!-- Spending Graph -->      
+        <h5 class="mt-3" id="spending_title">Monthly Spending</h5>
+        <canvas id="spending_chart"></canvas>
+        </div>
 
-      <div class="col-5 p-3">
-        <span>Calendar here</span>
-      </div>   
+        <div class="col-5 p-3" >
+            <!-- Spending Category List -->
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-white">
+                <div hidden id="spending_category" value="Grocery">Grocery</div>
+                <h5>Categorized Spending</h5>
+                <hr>
+                <div class="flex-column mb-auto">
+                <button class="normal-button w-100" id="sc_entertain" onclick="display_spending_category('Entertainment',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Entertainment
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_grocery" onclick="display_spending_category('Grocery',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Grocery
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_health" onclick="display_spending_category('Healthcare and Insurance',this.id)">
+                    <i class="fa-solid fa-bookmark me-2"></i>
+                    Healthcare and Insurance
+                </button>
+                <button class="normal-button w-100" id="sc_housing" onclick="display_spending_category('Housing',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Housing
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_misc" onclick="display_spending_category('Miscellaneous',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Miscellaneous
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_trans" onclick="display_spending_category('Transportation',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Transportation
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_utilities" onclick="display_spending_category('Utilities',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Utilities
+                </button>
+                <br />
+                </div>
+                <hr>
+            </div>
+        </div>   
 
     </div>      
-
-    <!-- recent receipt & activity-->
-    <div class="d-flex flex-row">
-
-      <div class="col-7 p-3">
-        <div class="d-flex flex-row mb-3">
-          <h5>Recent Receipts</h5>
-        </div>
-        <div id="d_recentreceipts"></div>
-
-        <!-- <div class="d-flex flex-row">
-          <div class="col-1">
-            <i class="fas fa-receipt me-2"></i>
-          </div>
-          <div class="col-8">
-            <h5 style="font-size: medium">testing1</h5>
-          </div>
-          <div class="col-3">
-            <h5 style="font-size: medium">$$$</h5>
-          </div>
-        </div> -->
-
-      </div>      
-
-      <div class="col-5 p-3">
-        <h5>Activity</h5>
-        <div class="p-3">
-          <canvas id="dashboard_activity"></canvas>
-        </div>  
-      </div>
-
-    </div>  
-
   </div> 
+  
 
   <div class="box_button">
     <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">

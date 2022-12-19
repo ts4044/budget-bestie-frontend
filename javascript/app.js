@@ -17,7 +17,7 @@ const navToReceipts = () => {
 };
 
 const navToSpendings = () => {
-  location.href = "dashboard.html";
+  location.href = "spending.html";
 };
 
 const navTosignIn = () => {
@@ -109,8 +109,8 @@ const loadReceipts = () => {
   var cognitoUser = userPool.getCurrentUser();
   var apigClient = apigClientFactory.newClient();
 
-  // var username = cognitoUser['username'];
-  var username = "tejassateesh";
+  var username = cognitoUser['username'];
+  // var username = "tejassateesh";
   var params = {
     username: username
   };
@@ -119,6 +119,7 @@ const loadReceipts = () => {
     var insertInto = document.getElementById("receipts");
 
     var receipts = res['data'];
+    console.log(receipts);
 
     for (var key in receipts) {
       var receipt = receipts[key];
@@ -181,5 +182,19 @@ window.onload = () => {
     fill_dashboard_summary(res);
   });
 
-  var recent_receipts = getReceipts();
+  var recent_receipts = getReceiptsDashboard();
+  recent_receipts.then(res=>{
+    fill_recent_receipts(res);
+  });
+
+  /*** for spending page ***/
+  var period = 'monthly'
+  var category = 'All'
+  var spendingStat = getSpendingStat(period,category);
+  spendingStat.then(res=>{
+    graph_SpendingStat(res);
+    // fill_spending(res);
+  });
+
+
 }
