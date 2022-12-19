@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6f37e727c4.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Dashboard</title>
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .btn {
+      background-color: #0B6E4F;
+      border: 0;
+    }
+  </style>
+
+  <link href="./style/sidebars.css" rel="stylesheet">
+  <link href="./style/modal.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet" />
+</head>
+
+<body">
+  <main>
+      <!-- sidebar-left -->
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <div id="username_sidebar"></div>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
+          </ul>
+        </div>
+        <hr>
+        <div class="flex-column mb-auto">
+          <button class="normal-button w-100" onclick="navToDashboard()">
+            <i class="fas fa-house me-2"></i>
+            Dashboard
+          </button>
+          <br />
+          <button class="normal-button w-100" onclick="navToReceipts()">
+            <i class="fas fa-receipt me-2"></i>
+            Receipts
+          </button>
+          <br />
+          <button class="normal-button active w-100" onclick="navToSpendings()">
+            <i class="fa-solid fa-dollar-sign me-2"></i>
+            Spendings
+          </button>
+        </div>
+        <hr>
+      </div>
+  </main>
+
+  <div class="container-md" style="margin-left: 200px">
+      <!--Title line -->
+    <div class="row">
+      <div class="d-flex mt-4">
+        <h3 class="p-2" style="color:#0B6E4F">Spending</h3>
+      </div>    
+    </div>
+
+    <!-- Spending graph and Category list-->
+    <div class="d-flex flex-row">
+        <!-- Timeframe -->
+        <div class="col-7 p-3">
+            <div class="row" style="background-color: #0B6E4F; border-radius: 5px;">
+            <div class="d-flex" >
+                <div hidden id="spending_timeframe" value="monthly">monthly</div>
+                <button class="btn btn-success" onclick="display_spending_timeframe('daily')">Daily</button>
+                <button class="btn btn-success" onclick="display_spending_timeframe('weekly')">Weekly</button>
+                <button class="btn btn-success" onclick="display_spending_timeframe('monthly')">Monthly</button>      
+            </div>    
+        </div>
+
+        <!-- Spending Graph -->      
+        <h5 class="mt-3" id="spending_title">Monthly Spending</h5>
+        <canvas id="spending_chart"></canvas>
+        </div>
+
+        <div class="col-5 p-3" >
+            <!-- Spending Category List -->
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-white">
+                <div hidden id="spending_category" value="Grocery">Grocery</div>
+                <h5>Categorized Spending</h5>
+                <hr>
+                <div class="flex-column mb-auto">
+                <button class="normal-button w-100" id="sc_entertain" onclick="display_spending_category('Entertainment',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Entertainment
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_grocery" onclick="display_spending_category('Grocery',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Grocery
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_health" onclick="display_spending_category('Healthcare and Insurance',this.id)">
+                    <i class="fa-solid fa-bookmark me-2"></i>
+                    Healthcare and Insurance
+                </button>
+                <button class="normal-button w-100" id="sc_housing" onclick="display_spending_category('Housing',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Housing
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_misc" onclick="display_spending_category('Miscellaneous',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Miscellaneous
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_trans" onclick="display_spending_category('Transportation',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Transportation
+                </button>
+                <br />
+                <button class="normal-button w-100" id="sc_utilities" onclick="display_spending_category('Utilities',this.id)">
+                    <i class="fas fa-bookmark me-2"></i>
+                    Utilities
+                </button>
+                <br />
+                </div>
+                <hr>
+            </div>
+        </div>   
+
+    </div>      
+  </div> 
+  
+
+  <div class="box_button">
+    <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+
+    <div class="box_button">
+      <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+    <div class="modal fade" id="uploadbox" tabindex="-1" aria-labelledby="uploadboxLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #0B6E4F; color: white">
+            <h1 class="modal-title fs-5" id="uploadboxLabel">Add a Receipt</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body row">
+            <div class="col-md-6">
+              Enter Details
+              <form id="upload_data">
+                <div class="form-group">
+                  <label for="receipt_title" style="font-size: 75%;">Title</label>
+                  <input type="text" class="form-control" id="receipt_title" placeholder="Title" required>
+                </div>
+                <div class="form-group">
+                  <label for="category" style="font-size: 75%;">Tag</label>
+                  <select class="form-control" id="category" required>
+                    <option></option>
+                    <option>Entertainment</option>
+                    <option>Food</option>
+                    <option>Healthcare and Insurance</option>
+                    <option>Housing</option>
+                    <option>Miscellaneous</option>
+                    <option>Transportation</option>
+                    <option>Utilities</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="total" style="font-size: 75%;">Description</label>
+                  <input type="textarea" class="form-control" id="description" placeholder="Description" rows="3">
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <input id="file-upload" type="file" class="filepond">
+              <button type="button" class="" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/hmac.js"></script>
+  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/enc-base64.js"></script>
+  <script type="text/javascript" src="./javascript/lib/url-template/url-template.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/utils.js"></script>
+  <script type="text/javascript" src="./javascript/apigClient.js"></script>
+  <script type="text/javascript" src="./javascript/amazon-cognito-identity.min.js"></script>
+  <script type="text/javascript" src="./javascript/config.js"></script>
+
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+  <script type="text/javascript" src="./javascript/app.js"></script>
+  <script type="text/javascript" src="./javascript/fileupload.js"></script>
+  <script type="text/javascript" src="./javascript/drawGraph.js"></script>
+  </body>
+
+</html>

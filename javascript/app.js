@@ -17,7 +17,7 @@ const navToReceipts = () => {
 };
 
 const navToSpendings = () => {
-  location.href = "dashboard.html";
+  location.href = "spending.html";
 };
 
 const navTosignIn = () => {
@@ -186,4 +186,15 @@ window.onload = () => {
   recent_receipts.then(res=>{
     fill_recent_receipts(res);
   });
+
+  /*** for spending page ***/
+  var period = 'monthly'
+  var category = 'All'
+  var spendingStat = getSpendingStat(period,category);
+  spendingStat.then(res=>{
+    graph_SpendingStat(res);
+    // fill_spending(res);
+  });
+
+
 }
