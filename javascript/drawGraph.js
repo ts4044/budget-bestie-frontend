@@ -1,4 +1,50 @@
 
+async function getReceiptsDashboard() {
+  var cognitoUser = userPool.getCurrentUser();
+  var apigClient = apigClientFactory.newClient();
+
+  var username = cognitoUser['username'];
+  var params = {
+    username: username
+  };
+
+  var apiCall = await apigClient.receiptsListGet(params, params, params)
+    .then(function (res) {
+      var receipts = res['data'];
+      // console.log(receipts);
+      return receipts;
+  })
+  return apiCall;
+    
+};
+
+function fill_recent_receipts(result){
+  console.log(result);
+  var res_size = Object.keys(result).length;
+  for (i=1; i <= Math.min(res_size,4);i++){
+    var title = result[i].title;
+    var total = result[i].total;
+
+    let recepitTemplate =
+      `
+      <div class="d-flex flex-row mb-2">
+        <div class="col-1">
+          <i class="fas fa-receipt me-2" style="color: #0B6E4F"></i>
+        </div>
+        <div class="col-8">
+          <h5 style="font-size: medium">${title}</h5>
+        </div>
+        <div class="col-3">
+          <h5 style="font-size: medium">${total}</h5>
+        </div>
+      </div>
+      `
+    // Concat the card here:
+    document.getElementById('d_recentreceipts').innerHTML += recepitTemplate;
+  }
+}
+
+
 async function getDashboardStat() {
   var cognitoUser = userPool.getCurrentUser();
   var apigClient = apigClientFactory.newClient();
