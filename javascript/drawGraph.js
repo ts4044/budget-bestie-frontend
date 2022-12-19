@@ -95,8 +95,8 @@ function graph_dashboard(result,range){
       data_point = result.total_this_week_daily;  
   
     // creating column labels (day_range)
-    var day_range = [];
-    for(var i =date_start; i<=date_end;i++){day_range.push(i)};
+    var day_range = ["Sun","Mon","Tue","Wed","Thur","Fri", "Sat"];
+    // for(var i =date_start; i<=date_end;i++){day_range.push(i)};
     // console.log(day_range);
   
     new Chart(ctx, {
@@ -134,5 +134,10 @@ function graph_dashboard(result,range){
       budget = budget - monthSpend;
     }
       
-
+    document.querySelector("#d_budget").innerHTML = budget;
+    document.querySelector("#d_receipts").innerHTML = receiptsSaved;
+    document.querySelector("#d_categories").innerHTML = numCategories;
+    document.querySelector("#d_spendtoday").innerHTML = todaySpend;
+    document.querySelector("#d_spendweek").innerHTML = weekSpend;
+    document.querySelector("#d_spendmonth").innerHTML = monthSpend;
   }

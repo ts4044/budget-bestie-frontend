@@ -125,4 +125,6 @@ window.onload = () => {
     graph_dashboard_activity(res);
     fill_dashboard_summary(res);
   });
+
+  var recent_receipts = getReceipts();
 }

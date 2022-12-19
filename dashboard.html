@@ -30,6 +30,10 @@
         font-size: 3.5rem;
       }
     }
+
+    .card i{
+      color: #0B6E4F;
+    }
   </style>
 
   <link href="./style/sidebars.css" rel="stylesheet">
@@ -41,7 +45,6 @@
 
 <body">
   <main>
-    <div class="d-flex flex-row">
       <!-- sidebar-left -->
       <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
         <div class="dropdown">
@@ -72,16 +75,140 @@
         </div>
         <hr>
       </div>
-      <!-- Dashboard graph -->
-      <div class="d-flex flex-row p-3">
-        <canvas id="dashboard_chart"></canvas>
-      </div>      
-      <div class="d-flex flex-row p-3">
-        <canvas id="dashboard_activity"></canvas>
-      </div>      
-    </div>
   </main>
 
+  <div class="container-md" style="margin-left: 200px">
+      <!-- Dashoard Summary icons -->
+    <div class="row">
+      <div class="d-flex justify-content-around mt-4">
+
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-dollar-sign"></i>
+            <p class="mb-0" id="d_budget"></p>
+            <p class="card-text" style="font-size: x-small">Under Budget</p>
+          </div>
+        </div>                
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-hashtag"></i>
+            <p class="mb-0" id="d_receipts"></p>
+            <p class="card-text" style="font-size: x-small">Receipts saved</p>
+          </div>
+        </div>  
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-magnifying-glass-dollar"></i>
+            <p class="mb-0" id="d_categories"></p>
+            <p class="card-text" style="font-size: x-small">Categories</p>
+          </div>
+        </div>  
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-calendar-day"></i>
+            <p class="mb-0" id="d_spendtoday"></p>
+            <p class="card-text" style="font-size: x-small">Spent Today</p>
+          </div>
+        </div>  
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-calendar-week"></i>
+            <p class="mb-0" id="d_spendweek"></p>
+            <p class="card-text" style="font-size: x-small">Spent this week </p>
+          </div>
+        </div>  
+        <div class="card text-center" style="width: 7rem; height: 6rem;">
+          <div class="card-body">
+            <i class="fas fa-calendar-days"></i>
+            <p class="mb-0" id="d_spendmonth"></p>
+            <p class="card-text" style="font-size: x-small">Spent this month</p>
+          </div>
+        </div>  
+      </div>    
+    </div>
+
+    <!-- Dashboard graph and calendar-->
+    <div class="d-flex flex-row">
+
+      <div class="col-7 p-3">
+        <h5>My Monthly Spending</h5>
+        <canvas id="dashboard_chart"></canvas>
+      </div>     
+
+      <div class="col-5 p-3">
+        <span>Calendar here</span>
+      </div>   
+
+    </div>      
+
+    <!-- recent receipt & activity-->
+    <div class="d-flex flex-row">
+
+      <div class="col-7 p-3">
+        <div class="d-flex flex-row">
+          <h5>Recent Receipts</h5>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="col-1">
+            <i class="fas fa-receipt me-2"></i>
+          </div>
+          <div class="col-8">
+            <h5 style="font-size: medium">testing1</h5>
+          </div>
+          <div class="col-3">
+            <h5 style="font-size: medium">$$$</h5>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="col-1">
+            <i class="fas fa-receipt me-2"></i>
+          </div>
+          <div class="col-8">
+            <h5 style="font-size: medium">testing1</h5>
+          </div>
+          <div class="col-3">
+            <h5 style="font-size: medium">$$$</h5>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="col-1">
+            <i class="fas fa-receipt me-2"></i>
+          </div>
+          <div class="col-8">
+            <h5 style="font-size: medium">testing1</h5>
+          </div>
+          <div class="col-3">
+            <h5 style="font-size: medium">$$$</h5>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="col-1">
+            <i class="fas fa-receipt me-2"></i>
+          </div>
+          <div class="col-8">
+            <h5 style="font-size: medium">testing1</h5>
+          </div>
+          <div class="col-3">
+            <h5 style="font-size: medium">$$$</h5>
+          </div>
+        </div>
+
+      </div>      
+
+      <div class="col-5 p-3">
+        <h5>Activity</h5>
+        <div class="p-3">
+          <canvas id="dashboard_activity"></canvas>
+        </div>  
+      </div>
+
+    </div>  
+
+  </div> 
 
   <div class="box_button">
     <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
