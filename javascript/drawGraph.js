@@ -304,7 +304,7 @@ function graph_dashboard(result,range){
     console.log("summary: ", budget, receiptsSaved, numCategories,todaySpend, weekSpend, monthSpend );
 
     if (budget != "N/A"){
-      budget = budget - monthSpend;
+      budget = (budget - monthSpend).toFixed(2);
     }
       
     document.querySelector("#d_budget").innerHTML = budget;
