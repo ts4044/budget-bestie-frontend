@@ -101,10 +101,28 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.dashboardStatsOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var dashboardStatsOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/dashboard/stats').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(dashboardStatsOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.receiptsListGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['username', 'id'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['username', 'id'], ['body', 'id']);
         
         var receiptsListGetRequest = {
             verb: 'get'.toUpperCase(),
@@ -116,6 +134,24 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(receiptsListGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.receiptsListOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var receiptsListOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/receipts/list').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(receiptsListOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     
@@ -152,6 +188,42 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(receiptsUploadOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.spendingStatsGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['period', 'category', 'username'], ['body']);
+        
+        var spendingStatsGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/spending/stats').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['period', 'category', 'username']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(spendingStatsGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.spendingStatsOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var spendingStatsOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/spending/stats').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(spendingStatsOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
 

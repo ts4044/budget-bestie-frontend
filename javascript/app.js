@@ -57,7 +57,7 @@ const confirmCode = () => {
     Pool: userPool,
   });
   const code = document.querySelector("#confirm").value;
-  console.log("code =" + code);
+
   cognitoUser.confirmRegistration(code, true, function (err, results) {
     if (err) {
       alert(err);
@@ -105,6 +105,60 @@ const signOut = () => {
   }
 };
 
+const loadReceipts = () => {
+  var cognitoUser = userPool.getCurrentUser();
+  var apigClient = apigClientFactory.newClient();
+
+  // var username = cognitoUser['username'];
+  var username = "tejassateesh";
+  var params = {
+    username: username
+  };
+
+  apigClient.receiptsListGet(params, params, params).then(function (res) {
+    var insertInto = document.getElementById("receipts");
+
+    var receipts = res['data'];
+
+    for (var key in receipts) {
+      var receipt = receipts[key];
+
+      insertInto.innerHTML +=
+        '<div class="col">'
+        + '<div class="card h-100">'
+        + '<div class="card-header bg-transparent">Receipt #' + key + '</div>'
+        + '<div class="card-img-top" id=receiptimg' + key + '> </div>'
+        + '<div class="card-body">'
+        + '<h5 class="card-title">' + receipt["title"] + '</h5>'
+        + '<p class="card-text">' + receipt["description"] + '</p>'
+        + '</div>'
+        + '<div class="card-footer border-0 bg-transparent">'
+        + '<div class="text-start">' + receipt['date'] + '</div>'
+        + '<div class="text-end">$' + receipt['total'] + '</div>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+
+      // Get Image data
+      var request = new XMLHttpRequest();
+      request.open('GET', receipt['s3_link'], true);
+      request.responseType = 'blob';
+      let i = key;
+      request.onload = function () {
+        var newDiv = document.getElementById("receiptimg" + i);
+        var newimg = document.createElement("img");
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          newimg.src = 'data:image/*;base64, ' + (e.target.result);
+        };
+        reader.readAsText(this.response, 'base64');
+        newDiv.appendChild(newimg);
+      }
+      request.send();
+    }
+  });
+}
+
 window.onload = () => {
   var cognitoUser = userPool.getCurrentUser();
   if (cognitoUser) {
@@ -112,5 +166,6 @@ window.onload = () => {
       document.getElementById("username_sidebar").innerHTML = cognitoUser["username"];
     }
   }
+  loadReceipts();
 }
 
