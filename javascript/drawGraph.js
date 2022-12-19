@@ -27,6 +27,7 @@ function display_spending_category(category,onClickId){
   document.querySelectorAll('.active').forEach(item=>{item.classList.remove("active")});
   let item = document.getElementById(onClickId);
   item.classList.add("active");
+  document.getElementById('sidebar_spendings').classList.add("active");
 
   // destory existing graph before doing a new one
   let chartStatus = Chart.getChart("spending_chart"); // <canvas id>
@@ -314,4 +315,3 @@ function graph_dashboard(result,range){
     document.querySelector("#d_spendmonth").innerHTML = monthSpend;
   }
 //-------------------------------------------------------------------------------
-
