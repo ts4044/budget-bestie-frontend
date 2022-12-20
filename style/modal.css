@@ -61,3 +61,12 @@
     align-items: center;
     justify-content: center;
 }
+.card-body{
+    background: #bdd9c0;
+}
+.card-footer{
+      background: #bdd9c0;
+}
+.card-header{
+    background: #bdd9c0;
+}

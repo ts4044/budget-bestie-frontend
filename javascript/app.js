@@ -127,13 +127,13 @@ const loadReceipts = () => {
       insertInto.innerHTML +=
         '<div class="col">'
         + '<div class="card h-100">'
-        + '<div class="card-header bg-transparent">Receipt #' + key + '</div>'
+        + '<div class="card-header">Receipt #' + key + '</div>'
         + '<div class="card-img-top" id=receiptimg' + key + '> </div>'
         + '<div class="card-body">'
         + '<h5 class="card-title">' + receipt["title"] + '</h5>'
         + '<p class="card-text">' + receipt["description"] + '</p>'
         + '</div>'
-        + '<div class="card-footer border-0 bg-transparent">'
+        + '<div class="card-footer border-0">'
         + '<div class="text-start">' + receipt['date'] + '</div>'
         + '<div class="text-end">$' + receipt['total'] + '</div>'
         + '</div>'
@@ -151,6 +151,7 @@ const loadReceipts = () => {
         var reader = new FileReader();
         reader.onload = function (e) {
           newimg.src = 'data:image/*;base64, ' + (e.target.result);
+          newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: cover;"
         };
         reader.readAsText(this.response, 'base64');
         newDiv.appendChild(newimg);
