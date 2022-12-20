@@ -78,8 +78,9 @@ function graph_SpendingStat(result){
     data_point = [result.period_stat];  
   }else if(range =="weekly"){
     type = 'line';
-    date_start = Math.max((result.day -7 +1),1); // +1 to inlcude current/today
-    date_end = result.day;
+    var curr = new Date; // get current date
+    date_start = curr.getDate() - curr.getDay(); // this always gives Mon of curr week
+    date_end = date_start+6;
     if (date_end<3){type="bar"}; //just looks better when having few datapoints
     data_point = result.period_stat;  
   }else if(range =="monthly"){
