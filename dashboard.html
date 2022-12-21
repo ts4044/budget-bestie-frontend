@@ -13,6 +13,7 @@
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/6f37e727c4.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.0.1/index.global.min.js'></script>
   <title>Dashboard</title>
 
   <style>
@@ -40,6 +41,17 @@
   <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
   <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
     rel="stylesheet" />
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+    });
+
+  </script>
 </head>
 
 <body>
@@ -135,7 +147,7 @@
       </div>
 
       <div class="col-5 p-3">
-        <span>Calendar here</span>
+        <div id='calendar'></div>
       </div>
 
     </div>
@@ -214,7 +226,8 @@
           </div>
           <div class="col-md-6">
             <input id="file-upload" type="file" class="filepond">
-            <button type="button" class="normal-button" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
+            <button type="button" class="normal-button" id="upload-button" onclick="uploadReceipt()"
+              disabled>Upload</button>
           </div>
         </div>
       </div>
