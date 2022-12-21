@@ -1,9 +1,5 @@
-.box_button {
-    position: relative;
-}
-
 .upload_button {
-    position: absolute;
+    position: fixed;
     bottom: 30px;
     right: 30px;
     background-color: #0B6E4F;

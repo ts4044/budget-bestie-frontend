@@ -110,6 +110,11 @@
           <h5>Categorized Spending</h5>
           <hr>
           <div class="flex-column mb-auto">
+            <button class="normal-button w-100" id="sc_all" onclick="display_spending_category('All',this.id)">
+              <i class="fas fa-bookmark me-2"></i>
+              All
+            </button>
+            <br />
             <button class="normal-button w-100" id="sc_entertain"
               onclick="display_spending_category('Entertainment',this.id)">
               <i class="fas fa-bookmark me-2"></i>
@@ -163,8 +168,8 @@
   </div>
 
 
-  <div class="dropup box_button">
-    <button type="button" class="btn upload_button grow" data-bs-toggle="dropdown" aria-expanded="false">
+  <div class="dropup upload_button">
+    <button type="button" class="btn text-white grow" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="fa-solid fa-plus"></i>
     </button>
     <ul class="dropdown-menu">
@@ -198,7 +203,7 @@
               </div>
               <div class="form-group">
                 <label for="category" style="font-size: 75%;">Tag</label>
-                <select class="form-control" id="category" required>
+                <select class="form-control dropdown-toggle" id="category" required>
                   <option></option>
                   <option>Entertainment</option>
                   <option>Food</option>

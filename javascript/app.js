@@ -129,7 +129,8 @@ const loadReceipts = () => {
         '<div class="col">'
         + '<div class="card h-100">'
         + '<div class="card-header">Receipt #' + key + '</div>'
-        + '<div class="card-img-top" id=receiptimg' + key + '> </div>'
+        // + '<div class="card-img-top" id=receiptimg' + key + '> </div>'
+        + '<div class="card-img-top"> <img src="' + receipt['s3_link'] + '" style="max-width: 100%; max-height: 400px; min-height: 350px; object-fit: scale-down;"> </div>'
         + '<div class="card-body">'
         + '<h5 class="card-title">' + receipt["title"] + '</h5>'
         + '<p class="card-text">' + receipt["description"] + '</p>'
@@ -142,22 +143,22 @@ const loadReceipts = () => {
         + '</div>';
 
       // Get Image data
-      var request = new XMLHttpRequest();
-      request.open('GET', receipt['s3_link'], true);
-      request.responseType = 'blob';
-      let i = key;
-      request.onload = function () {
-        var newDiv = document.getElementById("receiptimg" + i);
-        var newimg = document.createElement("img");
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          newimg.src = 'data:image/*;base64, ' + (e.target.result);
-          newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: scale-down;"
-        };
-        reader.readAsText(this.response, 'base64');
-        newDiv.appendChild(newimg);
-      }
-      request.send();
+      // var request = new XMLHttpRequest();
+      // request.open('GET', receipt['s3_link'], true);
+      // request.responseType = 'blob';
+      // let i = key;
+      // request.onload = function () {
+      //   var newDiv = document.getElementById("receiptimg" + i);
+      //   var newimg = document.createElement("img");
+      //   var reader = new FileReader();
+      //   reader.onload = function (e) {
+      //     newimg.src = 'data:image/*;base64, ' + (e.target.result);
+      //     newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: scale-down;"
+      //   };
+      //   reader.readAsText(this.response, 'base64');
+      //   newDiv.appendChild(newimg);
+      // }
+      // request.send();
     }
   });
 }
