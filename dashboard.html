@@ -30,7 +30,7 @@
       }
     }
 
-    .card i{
+    .card i {
       color: #0B6E4F;
     }
   </style>
@@ -42,42 +42,42 @@
     rel="stylesheet" />
 </head>
 
-<body">
+<body>
   <main>
-      <!-- sidebar-left -->
-      <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <div id="username_sidebar"></div>
-          </a>
-          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-            <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
-          </ul>
-        </div>
-        <hr>
-        <div class="flex-column mb-auto">
-          <button class="normal-button active w-100" onclick="navToDashboard()">
-            <i class="fas fa-house me-2"></i>
-            Dashboard
-          </button>
-          <br />
-          <button class="normal-button w-100" onclick="navToReceipts()">
-            <i class="fas fa-receipt me-2"></i>
-            Receipts
-          </button>
-          <br />
-          <button class="normal-button w-100" onclick="navToSpendings()">
-            <i class="fa-solid fa-dollar-sign me-2"></i>
-            Spendings
-          </button>
-        </div>
-        <hr>
+    <!-- sidebar-left -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <div id="username_sidebar"></div>
+        </a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+          <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
+        </ul>
       </div>
+      <hr>
+      <div class="flex-column mb-auto">
+        <button class="normal-button active w-100" onclick="navToDashboard()">
+          <i class="fas fa-house me-2"></i>
+          Dashboard
+        </button>
+        <br />
+        <button class="normal-button w-100" onclick="navToReceipts()">
+          <i class="fas fa-receipt me-2"></i>
+          Receipts
+        </button>
+        <br />
+        <button class="normal-button w-100" onclick="navToSpendings()">
+          <i class="fa-solid fa-dollar-sign me-2"></i>
+          Spendings
+        </button>
+      </div>
+      <hr>
+    </div>
   </main>
 
   <div class="container-md" style="margin-left: 200px">
-      <!-- Dashoard Summary icons -->
+    <!-- Dashoard Summary icons -->
     <div class="row">
       <div class="d-flex justify-content-around mt-4">
 
@@ -87,43 +87,43 @@
             <p class="mb-0" id="d_budget"></p>
             <p class="card-text" style="font-size: x-small">Under Budget</p>
           </div>
-        </div>                
+        </div>
         <div class="card text-center" style="width: 7rem; height: 6rem;">
           <div class="card-body">
             <i class="fas fa-hashtag"></i>
             <p class="mb-0" id="d_receipts"></p>
             <p class="card-text" style="font-size: x-small">Receipts saved</p>
           </div>
-        </div>  
+        </div>
         <div class="card text-center" style="width: 7rem; height: 6rem;">
           <div class="card-body">
             <i class="fas fa-magnifying-glass-dollar"></i>
             <p class="mb-0" id="d_categories"></p>
             <p class="card-text" style="font-size: x-small">Categories</p>
           </div>
-        </div>  
+        </div>
         <div class="card text-center" style="width: 7rem; height: 6rem;">
           <div class="card-body">
             <i class="fas fa-calendar-day"></i>
             <p class="mb-0" id="d_spendtoday"></p>
             <p class="card-text" style="font-size: x-small">Spent Today</p>
           </div>
-        </div>  
+        </div>
         <div class="card text-center" style="width: 7rem; height: 6rem;">
           <div class="card-body">
             <i class="fas fa-calendar-week"></i>
             <p class="mb-0" id="d_spendweek"></p>
             <p class="card-text" style="font-size: x-small">Spent this week </p>
           </div>
-        </div>  
+        </div>
         <div class="card text-center" style="width: 7rem; height: 6rem;">
           <div class="card-body">
             <i class="fas fa-calendar-days"></i>
             <p class="mb-0" id="d_spendmonth"></p>
             <p class="card-text" style="font-size: x-small">Spent this month</p>
           </div>
-        </div>  
-      </div>    
+        </div>
+      </div>
     </div>
 
     <!-- Dashboard graph and calendar-->
@@ -132,13 +132,13 @@
       <div class="col-7 p-3">
         <h5>My Monthly Spending</h5>
         <canvas id="dashboard_chart"></canvas>
-      </div>     
+      </div>
 
       <div class="col-5 p-3">
         <span>Calendar here</span>
-      </div>   
+      </div>
 
-    </div>      
+    </div>
 
     <!-- recent receipt & activity-->
     <div class="d-flex flex-row">
@@ -148,70 +148,94 @@
           <h5>Recent Receipts</h5>
         </div>
         <div id="d_recentreceipts"></div>
-      </div>      
+      </div>
 
       <div class="col-5 p-3">
         <h5>Activity</h5>
         <div class="p-3">
           <canvas id="dashboard_activity"></canvas>
-        </div>  
+        </div>
       </div>
-
-    </div>  
-
-  </div> 
-
-  <div class="box_button">
-    <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
-      <i class="fa-solid fa-plus"></i>
-    </button>
+    </div>
   </div>
 
-    <div class="box_button">
-      <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
-        <i class="fa-solid fa-plus"></i>
-      </button>
+  <div class="dropup box_button">
+    <button type="button" class="btn upload_button grow" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <button type="button" class="btn w-100" data-bs-toggle="modal" data-bs-target="#uploadbox">
+          UPLOAD
+        </button>
+      </li>
+      <li>
+        <button type="button" class="btn w-100" data-bs-toggle="modal" data-bs-target="#budgetbox">
+          SET BUDGET
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="uploadbox" tabindex="-1" aria-labelledby="uploadboxLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0B6E4F; color: white">
+          <h1 class="modal-title fs-5" id="uploadboxLabel">Add a Receipt</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6">
+            Enter Details
+            <form id="upload_data">
+              <div class="form-group">
+                <label for="receipt_title" style="font-size: 75%;">Title</label>
+                <input type="text" class="form-control" id="receipt_title" placeholder="Title" required>
+              </div>
+              <div class="form-group">
+                <label for="category" style="font-size: 75%;">Tag</label>
+                <select class="form-control" id="category" required>
+                  <option></option>
+                  <option>Entertainment</option>
+                  <option>Food</option>
+                  <option>Grocery</option>
+                  <option>Healthcare and Insurance</option>
+                  <option>Housing</option>
+                  <option>Miscellaneous</option>
+                  <option>Transportation</option>
+                  <option>Utilities</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="total" style="font-size: 75%;">Description</label>
+                <input type="textarea" class="form-control" id="description" placeholder="Description" rows="3">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <input id="file-upload" type="file" class="filepond">
+            <button type="button" class="normal-button" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="modal fade" id="uploadbox" tabindex="-1" aria-labelledby="uploadboxLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #0B6E4F; color: white">
-            <h1 class="modal-title fs-5" id="uploadboxLabel">Add a Receipt</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body row">
-            <div class="col-md-6">
-              Enter Details
-              <form id="upload_data">
-                <div class="form-group">
-                  <label for="receipt_title" style="font-size: 75%;">Title</label>
-                  <input type="text" class="form-control" id="receipt_title" placeholder="Title" required>
-                </div>
-                <div class="form-group">
-                  <label for="category" style="font-size: 75%;">Tag</label>
-                  <select class="form-control" id="category" required>
-                    <option></option>
-                    <option>Entertainment</option>
-                    <option>Food</option>
-                    <option>Grocery</option>
-                    <option>Healthcare and Insurance</option>
-                    <option>Housing</option>
-                    <option>Miscellaneous</option>
-                    <option>Transportation</option>
-                    <option>Utilities</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="total" style="font-size: 75%;">Description</label>
-                  <input type="textarea" class="form-control" id="description" placeholder="Description" rows="3">
-                </div>
-              </form>
+  </div>
+
+  <div class="modal fade" id="budgetbox" tabindex="-1" aria-labelledby="budgetboxlabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0B6E4F; color: white">
+          <h1 class="modal-title fs-5" id="budgetboxlabel">Set My Budget</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="set_budget">
+            <div class="form-group">
+              <label for="budget_amount" style="font-size: 75%;">Amount</label>
+              <input type="text" class="form-control" id="budget_amount" placeholder="Amount" required>
             </div>
-            <div class="col-md-6">
-              <input id="file-upload" type="file" class="filepond">
-              <button type="button" class="" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
-            </div>
-          </div>
+          </form>
+          <button type="button" class="normal-button" id="budget-button" onclick="setbudget()">Submit</button>
         </div>
       </div>
     </div>
@@ -235,8 +259,8 @@
   <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
   <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
   <script type="text/javascript" src="./javascript/app.js"></script>
-  <script type="text/javascript" src="./javascript/fileupload.js"></script>
+  <script type="text/javascript" src="./javascript/postdata.js"></script>
   <script type="text/javascript" src="./javascript/drawGraph.js"></script>
-  </body>
+</body>
 
 </html>

@@ -23,53 +23,66 @@
 </head>
 
 <body>
-    <!-- sidebar-left -->
-    <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
-          <div class="dropdown">
-            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <div id="username_sidebar"></div>
-            </a>
-            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-              <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
-            </ul>
-          </div>
-          <hr>
-          <div class="flex-column mb-auto">
-            <button class="normal-button w-100" onclick="navToDashboard()">
-              <i class="fas fa-house me-2"></i>
-              Dashboard
-            </button>
-            <br />
-            <button class="normal-button active w-100" onclick="navToReceipts()">
-              <i class="fas fa-receipt me-2"></i>
-              Receipts
-            </button>
-            <br />
-            <button class="normal-button w-100" id="sidebar_spendings" onclick="navToSpendings()">
-              <i class="fa-solid fa-dollar-sign me-2"></i>
-              Spendings
-            </button>
-          </div>
-          <hr>
-        </div>
-    </main>
-  
-    <div class="container-md" style="margin-left: 200px">
-        <div class="row flex-nowrap vh-100">
-            <div class="col py-3 scrollable ">
-                <h3 class="p-2 mt-2" style="color:#0B6E4F">Receipts</h3>
-                <div class="row row-cols-1 row-cols-md-3 g-4" id="receipts">
-                </div>
-            </div>
-        </div>
+  <!-- sidebar-left -->
+  <main>
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-white sidebar" style="width: 200px;">
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <div id="username_sidebar"></div>
+        </a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+          <li><button class="dropdown-item" onclick="signOut()">Sign out</button></li>
+        </ul>
+      </div>
+      <hr>
+      <div class="flex-column mb-auto">
+        <button class="normal-button w-100" onclick="navToDashboard()">
+          <i class="fas fa-house me-2"></i>
+          Dashboard
+        </button>
+        <br />
+        <button class="normal-button active w-100" onclick="navToReceipts()">
+          <i class="fas fa-receipt me-2"></i>
+          Receipts
+        </button>
+        <br />
+        <button class="normal-button w-100" id="sidebar_spendings" onclick="navToSpendings()">
+          <i class="fa-solid fa-dollar-sign me-2"></i>
+          Spendings
+        </button>
+      </div>
+      <hr>
+    </div>
+  </main>
 
-    <div class="box_button">
-      <button type="button" class="btn upload_button grow" data-bs-toggle="modal" data-bs-target="#uploadbox">
+  <div class="container-md" style="margin-left: 200px">
+    <div class="row flex-nowrap vh-100">
+      <div class="col py-3 scrollable ">
+        <h3 class="p-2 mt-2" style="color:#0B6E4F">Receipts</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="receipts">
+        </div>
+      </div>
+    </div>
+
+    <div class="dropup box_button">
+      <button type="button" class="btn upload_button grow" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa-solid fa-plus"></i>
       </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button type="button" class="btn w-100" data-bs-toggle="modal" data-bs-target="#uploadbox">
+            UPLOAD
+          </button>
+        </li>
+        <li>
+          <button type="button" class="btn w-100" data-bs-toggle="modal" data-bs-target="#budgetbox">
+            SET BUDGET
+          </button>
+        </li>
+      </ul>
     </div>
+
     <div class="modal fade" id="uploadbox" tabindex="-1" aria-labelledby="uploadboxLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -107,34 +120,54 @@
             </div>
             <div class="col-md-6">
               <input id="file-upload" type="file" class="filepond">
-              <button type="button" class="" id="upload-button" onclick="uploadReceipt()" disabled>Upload</button>
+              <button type="button" class="normal-button" id="upload-button" onclick="uploadReceipt()"
+                disabled>Upload</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="modal fade" id="budgetbox" tabindex="-1" aria-labelledby="budgetboxlabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #0B6E4F; color: white">
+            <h1 class="modal-title fs-5" id="budgetboxlabel">Set My Budget</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="set_budget">
+              <div class="form-group">
+                <label for="budget_amount" style="font-size: 75%;">Amount</label>
+                <input type="text" class="form-control" id="budget_amount" placeholder="Amount" required>
+              </div>
+            </form>
+            <button type="button" class="normal-button" id="budget-button" onclick="setbudget()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-  <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
-  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
-  <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
-  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/hmac.js"></script>
-  <script type="text/javascript" src="./javascript/lib/CryptoJS/components/enc-base64.js"></script>
-  <script type="text/javascript" src="./javascript/lib/url-template/url-template.js"></script>
-  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/sigV4Client.js"></script>
-  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/apiGatewayClient.js"></script>
-  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/simpleHttpClient.js"></script>
-  <script type="text/javascript" src="./javascript/lib/apiGatewayCore/utils.js"></script>
-  <script type="text/javascript" src="./javascript/apigClient.js"></script>
-  <script type="text/javascript" src="./javascript/amazon-cognito-identity.min.js"></script>
-  <script type="text/javascript" src="./javascript/config.js"></script>
+    <script type="text/javascript" src="./javascript/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="./javascript/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="./javascript/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="./javascript/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="./javascript/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="./javascript/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="./javascript/apigClient.js"></script>
+    <script type="text/javascript" src="./javascript/amazon-cognito-identity.min.js"></script>
+    <script type="text/javascript" src="./javascript/config.js"></script>
 
-  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-  <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-  <script type="text/javascript" src="./javascript/app.js"></script>
-  <script type="text/javascript" src="./javascript/fileupload.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script type="text/javascript" src="./javascript/app.js"></script>
+    <script type="text/javascript" src="./javascript/postdata.js"></script>
 </body>
 
 </html>

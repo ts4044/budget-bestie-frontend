@@ -83,6 +83,42 @@ apigClientFactory.newClient = function (config) {
     
     
     
+    apigClient.budgetSetPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var budgetSetPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/budget/set').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(budgetSetPostRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.budgetSetOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var budgetSetOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/budget/set').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(budgetSetOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.dashboardStatsGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
@@ -122,7 +158,7 @@ apigClientFactory.newClient = function (config) {
     apigClient.receiptsListGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['username', 'id'], ['body', 'id']);
+        apiGateway.core.utils.assertParametersDefined(params, ['username', 'id'], ['body']);
         
         var receiptsListGetRequest = {
             verb: 'get'.toUpperCase(),

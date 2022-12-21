@@ -21,6 +21,11 @@ myModalEl.addEventListener('hide.bs.modal', function (event) {
     document.getElementById("upload_data").reset();
 });
 
+var myModal2 = document.getElementById('budgetbox')
+myModal2.addEventListener('hide.bs.modal', function (event) {
+    document.getElementById("set_budget").reset();
+});
+
 function uploadReceipt() {
     const fileBtn = document.getElementById("file-upload");
     fileBtn.click();
@@ -78,4 +83,40 @@ function uploadReceipt(input) {
         });
 
     $('#uploadbox').modal('hide');
+}
+
+function setbudget(input) {
+    if (document.getElementById('budget_amount').value.length === 0) {
+        alert("Please enter a value!");
+        return;
+    }
+
+    var set_amount = document.getElementById("budget_amount").value;
+    var cognitoUser = userPool.getCurrentUser();
+
+    var apigClient = apigClientFactory.newClient();
+
+    var body_data = {
+        username: cognitoUser["username"],
+        amount: set_amount,
+    }
+
+    var params = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'uKo9wX1Uzb5JvLDsjl6ui7Gy8l4qFLe9Pl5SMigg',
+        Accept: '*/*',
+    };
+
+    var additionalParams = {};
+    apigClient
+        .budgetSetPost(params, body_data, additionalParams)
+        .then(function (res) {
+            if (res.status == 200) {
+                alert("Budget was set successfully");
+            } else {
+                alert("Budget could not be set, try again later.");
+            }
+        });
+
+    $('#budgetbox').modal('hide');
 }
