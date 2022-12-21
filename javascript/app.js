@@ -129,36 +129,24 @@ const loadReceipts = () => {
         '<div class="col">'
         + '<div class="card h-100">'
         + '<div class="card-header">Receipt #' + key + '</div>'
-        // + '<div class="card-img-top" id=receiptimg' + key + '> </div>'
-        + '<div class="card-img-top"> <img src="' + receipt['s3_link'] + '" style="max-width: 100%; max-height: 400px; min-height: 350px; object-fit: scale-down;"> </div>'
+        + '<div class="card-img-top"> <a href="' + receipt['s3_link']
+        + '"><img src="' + receipt['s3_link']
+        + '" style="max-width: 100%; max-height: 200px; min-height: 100px; object-fit: scale-down; '
+        + 'display: block; margin: auto"></a></div>'
         + '<div class="card-body">'
         + '<h5 class="card-title">' + receipt["title"] + '</h5>'
         + '<p class="card-text">' + receipt["description"] + '</p>'
         + '</div>'
         + '<div class="card-footer border-0">'
-        + '<div class="text-start">' + receipt['date'] + '</div>'
-        + '<div class="text-end">$' + receipt['total'] + '</div>'
+        + '<div class="container">'
+        + '<div class="row">'
+        + '<div class="col-6" style="text-align: left;">' + receipt['date'] + '</div>'
+        + '<div class="col-6" style="text-align: right;">$' + receipt['total'] + '</div>'
+        + '</div>'
+        + '</div>'
         + '</div>'
         + '</div>'
         + '</div>';
-
-      // Get Image data
-      // var request = new XMLHttpRequest();
-      // request.open('GET', receipt['s3_link'], true);
-      // request.responseType = 'blob';
-      // let i = key;
-      // request.onload = function () {
-      //   var newDiv = document.getElementById("receiptimg" + i);
-      //   var newimg = document.createElement("img");
-      //   var reader = new FileReader();
-      //   reader.onload = function (e) {
-      //     newimg.src = 'data:image/*;base64, ' + (e.target.result);
-      //     newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: scale-down;"
-      //   };
-      //   reader.readAsText(this.response, 'base64');
-      //   newDiv.appendChild(newimg);
-      // }
-      // request.send();
     }
   });
 }
