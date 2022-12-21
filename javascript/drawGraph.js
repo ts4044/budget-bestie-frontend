@@ -1,9 +1,9 @@
 /** Spending **/
-function display_spending_timeframe(period){
+function display_spending_timeframe(period) {
   // update #spending_timeframe first
   document.getElementById('spending_timeframe').innerHTML = period;
   var category = document.querySelector('#spending_category').innerHTML;
-  
+
   // active the selected timeframe
 
   // destory existing graph before doing a new one
@@ -11,20 +11,20 @@ function display_spending_timeframe(period){
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
- 
+
   // calling API (which will update the graph)
-  var spendingStat = getSpendingStat(period,category);
-  spendingStat.then(res=>{
+  var spendingStat = getSpendingStat(period, category);
+  spendingStat.then(res => {
     graph_SpendingStat(res);
   });
 }
-function display_spending_category(category,onClickId){
+function display_spending_category(category, onClickId) {
   // update #spending_timeframe first
   document.getElementById('spending_category').innerHTML = category;
   var period = document.querySelector('#spending_timeframe').innerHTML;
 
   // active the selected category
-  document.querySelectorAll('.active').forEach(item=>{item.classList.remove("active")});
+  document.querySelectorAll('.active').forEach(item => { item.classList.remove("active") });
   let item = document.getElementById(onClickId);
   item.classList.add("active");
   document.getElementById('sidebar_spendings').classList.add("active");
@@ -36,10 +36,10 @@ function display_spending_category(category,onClickId){
   }
 
   // calling API (which will update the graph)
-  var spendingStat = getSpendingStat(period,category);
-  spendingStat.then(res=>{
+  var spendingStat = getSpendingStat(period, category);
+  spendingStat.then(res => {
     graph_SpendingStat(res);
-  }); 
+  });
 }
 
 async function getSpendingStat(period, category) {
@@ -58,11 +58,11 @@ async function getSpendingStat(period, category) {
       var spendings = res['data'];
       console.log(spendings);
       return spendings;
-  })
+    })
   return apiCall;
 };
 
-function graph_SpendingStat(result){
+function graph_SpendingStat(result) {
   console.log("Graphing spending called");
   console.log(result);
   const ctx = document.getElementById('spending_chart');
@@ -70,33 +70,33 @@ function graph_SpendingStat(result){
   var category = result.category;
 
   // day, week, month switch
-  var type, data_pt_desc="Spent", data_point, date_start, date_end;
-  if (range == "daily"){
+  var type, data_pt_desc = "Spent", data_point, date_start, date_end;
+  if (range == "daily") {
     type = 'bar';
     date_start = result.day;
     date_end = result.day;
-    data_point = [result.period_stat];  
-  }else if(range =="weekly"){
+    data_point = [result.period_stat];
+  } else if (range == "weekly") {
     type = 'line';
     var curr = new Date; // get current date
     date_start = curr.getDate() - curr.getDay(); // this always gives Mon of curr week
-    date_end = date_start+6;
-    if (date_end<3){type="bar"}; //just looks better when having few datapoints
-    data_point = result.period_stat;  
-  }else if(range =="monthly"){
+    date_end = date_start + 6;
+    if (date_end < 3) { type = "bar" }; //just looks better when having few datapoints
+    data_point = result.period_stat;
+  } else if (range == "monthly") {
     type = 'line';
     date_start = 1; // month always start with 1st
     date_end = result.day;
-    if (date_end<3){type="bar"}; //just looks better when having few datapoints
-    data_point = result.period_stat;  
+    if (date_end < 3) { type = "bar" }; //just looks better when having few datapoints
+    data_point = result.period_stat;
   }
 
   // creating column labels (day_range)
   var day_range = [];
-  for(var i =date_start; i<=date_end;i++){day_range.push(i)};
+  for (var i = date_start; i <= date_end; i++) { day_range.push(i) };
   console.log(day_range);
   console.log(data_point);
-  
+
   var newChart = new Chart(ctx, {
     type: type,
     data: {
@@ -116,10 +116,10 @@ function graph_SpendingStat(result){
         }
       }
     }
-  }); 
+  });
 
   var period = range;
-  period = period.charAt(0).toUpperCase()+period.slice(1);
+  period = period.charAt(0).toUpperCase() + period.slice(1);
   document.querySelector("#spending_title").innerHTML = `${period} ${category} Spending`;
 }
 //-------------------------------------------------------------------------
@@ -131,6 +131,7 @@ async function getReceiptsDashboard() {
 
   var username = cognitoUser['username'];
   var params = {
+    id: null,
     username: username
   };
 
@@ -139,17 +140,17 @@ async function getReceiptsDashboard() {
       var receipts = res['data'];
       // console.log(receipts);
       return receipts;
-  })
+    })
   return apiCall;
-    
+
 };
 
-function fill_recent_receipts(result){
+function fill_recent_receipts(result) {
   console.log(result);
   var res_size = Object.keys(result).length;
   var count = 0;
-  for (i=res_size; i >= 0;i--){
-    if(++count > Math.min(res_size,4)) break;
+  for (i = res_size; i >= 0; i--) {
+    if (++count > Math.min(res_size, 4)) break;
     var title = result[i].title;
     var total = result[i].total;
     // console.log(`${i}: ${title} ${total}`);
@@ -177,142 +178,143 @@ async function getDashboardStat() {
   var cognitoUser = userPool.getCurrentUser();
   var apigClient = apigClientFactory.newClient();
 
-  var body= {}
+  var body = {}
   var params = {
-      'Content-Type': 'application/json',
-      'x-api-key': 'uKo9wX1Uzb5JvLDsjl6ui7Gy8l4qFLe9Pl5SMigg',
-      username: cognitoUser["username"],
-      Accept: '*/*',
+    'Content-Type': 'application/json',
+    'x-api-key': 'uKo9wX1Uzb5JvLDsjl6ui7Gy8l4qFLe9Pl5SMigg',
+    username: cognitoUser["username"],
+    Accept: '*/*',
   };
   console.log(params);
   var additionalParams = {};
 
-  var apiCall = await apigClient.dashboardStatsGet(params, body, additionalParams) 
-    .then(function(res) {
-      if(res.status == 200){
+  var apiCall = await apigClient.dashboardStatsGet(params, body, additionalParams)
+    .then(function (res) {
+      if (res.status == 200) {
         console.log("getDashboardStat: ");
         console.log(res.data);
         // return only the meat of the response: data
         return res.data;
-      }else{
+      } else {
         alert("unsuccessful dashboardStatGet call");
-      }}
+      }
+    }
     );
-  return apiCall;  
+  return apiCall;
 };
 
-function graph_dashboard(result,range){
-    console.log("Graphing func called");
-    console.log(result);
-    const ctx = document.getElementById('dashboard_chart');
-  
-    // day, week, month switch
-    var type, data_pt_desc="Spent", data_point, date_start, date_end;
-    if (range == "day"){
-      // data_pt_desc = "Today Spending";
-      type = 'bar';
-      date_start = result.day; // month always start with 1st
-      date_end = result.day;
-      data_point = result.total_today;  
-    }else if(range =="week"){
-      // data_pt_desc = "Weekly Spending";
-      type = 'line';
-      date_start = Math.max((result.day -7 +1),1); // +1 to inlcude current/today
-      date_end = result.day;
-      if (date_end<3){type="bar"}; //just looks better when having few datapoints
-      data_point = result.total_this_week_daily;  
-    }else if(range =="month"){
-      // data_pt_desc = "Monthly Spending";
-      type = 'line';
-      date_start = 1; // month always start with 1st
-      date_end = result.day;
-      if (date_end<3){type="bar"}; //just looks better when having few datapoints
-      data_point = result.total_this_month_daily;  
-    }
-  
-    // creating column labels (day_range)
-    var day_range = [];
-    for(var i =date_start; i<=date_end;i++){day_range.push(i)};
-    // console.log(data_point);
-  
-    new Chart(ctx, {
-      type: type,
-      data: {
-        labels: day_range,
-        datasets: [{
-          label: data_pt_desc,
-          borderColor: '#0B6E4F',
-          borderWidth: 2,
-          data: data_point
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+function graph_dashboard(result, range) {
+  console.log("Graphing func called");
+  console.log(result);
+  const ctx = document.getElementById('dashboard_chart');
+
+  // day, week, month switch
+  var type, data_pt_desc = "Spent", data_point, date_start, date_end;
+  if (range == "day") {
+    // data_pt_desc = "Today Spending";
+    type = 'bar';
+    date_start = result.day; // month always start with 1st
+    date_end = result.day;
+    data_point = result.total_today;
+  } else if (range == "week") {
+    // data_pt_desc = "Weekly Spending";
+    type = 'line';
+    date_start = Math.max((result.day - 7 + 1), 1); // +1 to inlcude current/today
+    date_end = result.day;
+    if (date_end < 3) { type = "bar" }; //just looks better when having few datapoints
+    data_point = result.total_this_week_daily;
+  } else if (range == "month") {
+    // data_pt_desc = "Monthly Spending";
+    type = 'line';
+    date_start = 1; // month always start with 1st
+    date_end = result.day;
+    if (date_end < 3) { type = "bar" }; //just looks better when having few datapoints
+    data_point = result.total_this_month_daily;
+  }
+
+  // creating column labels (day_range)
+  var day_range = [];
+  for (var i = date_start; i <= date_end; i++) { day_range.push(i) };
+  // console.log(data_point);
+
+  new Chart(ctx, {
+    type: type,
+    data: {
+      labels: day_range,
+      datasets: [{
+        label: data_pt_desc,
+        borderColor: '#0B6E4F',
+        borderWidth: 2,
+        data: data_point
+      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
-    }); 
-  }
+    }
+  });
+}
 
-  function graph_dashboard_activity(result){
-    const ctx = document.getElementById('dashboard_activity');
-  
-    // day, week, month switch
-    var type, data_pt_desc="Activity", data_point, date_start, date_end;
-      // data_pt_desc = "Weekly Spending";
-      type = 'bar';
-      date_start = Math.max((result.day -7 +1),1); // +1 to inlcude current/today
-      date_end = result.day;
-      data_point = result.total_this_week_daily;  
-  
-    // creating column labels (day_range)
-    var day_range = ["Sun","Mon","Tue","Wed","Thur","Fri", "Sat"];
-    // for(var i =date_start; i<=date_end;i++){day_range.push(i)};
-    // console.log(day_range);
-  
-    new Chart(ctx, {
-      type: type,
-      data: {
-        labels: day_range,
-        datasets: [{
-          label: data_pt_desc,
-          borderColor: '#0B6E4F',
-          borderWidth: 2,
-          data: data_point
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+function graph_dashboard_activity(result) {
+  const ctx = document.getElementById('dashboard_activity');
+
+  // day, week, month switch
+  var type, data_pt_desc = "Activity", data_point, date_start, date_end;
+  // data_pt_desc = "Weekly Spending";
+  type = 'bar';
+  date_start = Math.max((result.day - 7 + 1), 1); // +1 to inlcude current/today
+  date_end = result.day;
+  data_point = result.total_this_week_daily;
+
+  // creating column labels (day_range)
+  var day_range = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  // for(var i =date_start; i<=date_end;i++){day_range.push(i)};
+  // console.log(day_range);
+
+  new Chart(ctx, {
+    type: type,
+    data: {
+      labels: day_range,
+      datasets: [{
+        label: data_pt_desc,
+        borderColor: '#0B6E4F',
+        borderWidth: 2,
+        data: data_point
+      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
-    });
-  }
-
-  function fill_dashboard_summary(result){
-    var budget = result.budget_amt;
-    var receiptsSaved = result.num_receipts;
-    var numCategories = result.num_categories;
-    var todaySpend = result.total_today;
-    var weekSpend = result.total_this_week;
-    var monthSpend = result.total_this_month;
-    console.log("summary: ", budget, receiptsSaved, numCategories,todaySpend, weekSpend, monthSpend );
-
-    if (budget != "N/A"){
-      budget = (budget - monthSpend).toFixed(2);
     }
-      
-    document.querySelector("#d_budget").innerHTML = budget;
-    document.querySelector("#d_receipts").innerHTML = receiptsSaved;
-    document.querySelector("#d_categories").innerHTML = numCategories;
-    document.querySelector("#d_spendtoday").innerHTML = todaySpend;
-    document.querySelector("#d_spendweek").innerHTML = weekSpend;
-    document.querySelector("#d_spendmonth").innerHTML = monthSpend;
+  });
+}
+
+function fill_dashboard_summary(result) {
+  var budget = result.budget_amt;
+  var receiptsSaved = result.num_receipts;
+  var numCategories = result.num_categories;
+  var todaySpend = result.total_today;
+  var weekSpend = result.total_this_week;
+  var monthSpend = result.total_this_month;
+  console.log("summary: ", budget, receiptsSaved, numCategories, todaySpend, weekSpend, monthSpend);
+
+  if (budget != "N/A") {
+    budget = (budget - monthSpend).toFixed(2);
   }
+
+  document.querySelector("#d_budget").innerHTML = budget;
+  document.querySelector("#d_receipts").innerHTML = receiptsSaved;
+  document.querySelector("#d_categories").innerHTML = numCategories;
+  document.querySelector("#d_spendtoday").innerHTML = todaySpend;
+  document.querySelector("#d_spendweek").innerHTML = weekSpend;
+  document.querySelector("#d_spendmonth").innerHTML = monthSpend;
+}
 //-------------------------------------------------------------------------------

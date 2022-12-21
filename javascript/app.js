@@ -112,7 +112,8 @@ const loadReceipts = () => {
   var username = cognitoUser['username'];
   // var username = "tejassateesh";
   var params = {
-    username: username
+    username: username,
+    id: null
   };
 
   apigClient.receiptsListGet(params, params, params).then(function (res) {
@@ -151,7 +152,7 @@ const loadReceipts = () => {
         var reader = new FileReader();
         reader.onload = function (e) {
           newimg.src = 'data:image/*;base64, ' + (e.target.result);
-          newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: cover;"
+          newimg.style = " max-width: 100%; max-height: 650px; min-height: 350px; object-fit: scale-down;"
         };
         reader.readAsText(this.response, 'base64');
         newDiv.appendChild(newimg);
@@ -168,31 +169,41 @@ window.onload = () => {
       document.getElementById("username_sidebar").innerHTML = cognitoUser["username"];
     }
   }
-  loadReceipts();
+
+
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
 
   /***** adding dashboard graph *****/
-  // range can be: "day", "week", "month",default "month" for dashboard
-  var range = "month";
+  if (page === 'dashboard.html') {
+    // range can be: "day", "week", "month",default "month" for dashboard
+    var range = "month";
 
-  var stat = getDashboardStat();
-  stat.then(res=>{
-    // range can be "day", "week", "month"
-    graph_dashboard(res,range);
-    graph_dashboard_activity(res);
-    fill_dashboard_summary(res);
-  });
-  // for Recent Receipts part
-  var recent_receipts = getReceiptsDashboard();
-  recent_receipts.then(res=>{
-    fill_recent_receipts(res);
-  });
-
+    var stat = getDashboardStat();
+    stat.then(res => {
+      // range can be "day", "week", "month"
+      graph_dashboard(res, range);
+      graph_dashboard_activity(res);
+      fill_dashboard_summary(res);
+    });
+    // for Recent Receipts part
+    var recent_receipts = getReceiptsDashboard();
+    recent_receipts.then(res => {
+      fill_recent_receipts(res);
+    });
+  }
+  /*** for Receipts page ***/
+  else if (page === 'receipts.html') {
+    loadReceipts();
+  }
   /*** for Spending page ***/
-  // default showing "monthly" & "All" when loaded
-  var period = 'monthly'
-  var category = 'All'
-  var spendingStat = getSpendingStat(period,category);
-  spendingStat.then(res=>{
-    graph_SpendingStat(res);
-  });
+  else if (page === 'spending.html') {
+    // default showing "monthly" & "All" when loaded
+    var period = 'monthly'
+    var category = 'All'
+    var spendingStat = getSpendingStat(period, category);
+    spendingStat.then(res => {
+      graph_SpendingStat(res);
+    });
+  }
 }
