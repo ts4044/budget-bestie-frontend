@@ -146,15 +146,13 @@ async function getReceiptsDashboard() {
 };
 
 function fill_recent_receipts(result) {
-  console.log(result);
-  var res_size = Object.keys(result).length;
+  var res_keys = Object.keys(result).sort().reverse();
   var count = 0;
-  for (i = res_size; i >= 0; i--) {
-    if (++count > Math.min(res_size, 4)) break;
-    var title = result[i].title;
-    var total = result[i].total;
-    // console.log(`${i}: ${title} ${total}`);
-
+  for (var key in res_keys) {
+    if (count > 4) break
+    console.log(key)
+    var title = result[res_keys[key]].title;
+    var total = result[res_keys[key]].total;
     let recepitTemplate =
       `
       <div class="d-flex flex-row mb-2">
@@ -171,6 +169,7 @@ function fill_recent_receipts(result) {
       `
     // Concat the card here:
     document.getElementById('d_recentreceipts').innerHTML += recepitTemplate;
+    count++;
   }
 }
 
