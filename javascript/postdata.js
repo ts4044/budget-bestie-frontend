@@ -1,9 +1,15 @@
 FilePond.registerPlugin(FilePondPluginImagePreview);
 FilePond.registerPlugin(FilePondPluginFileEncode);
+FilePond.registerPlugin(FilePondPluginFileValidateSize);
+FilePond.registerPlugin(FilePondPluginFileValidateType);
 
 const inputElement = document.getElementById("file-upload");
 const pond = FilePond.create(inputElement, {
     allowMultiple: false,
+    allowFileSizeValidation: true,
+    maxFileSize: '5MB',
+    allowFileTypeValidation: true,
+    acceptedFileTypes: ['image/png', 'image/jpeg', 'image/jpg'],
     onaddfile: (err, fileItem) => {
         document.getElementById("upload-button").disabled = false;
     },
@@ -77,6 +83,7 @@ function uploadReceipt(input) {
         .then(function (res) {
             if (res.status == 200) {
                 alert("Receipt uploaded Successfully");
+                location.reload(); 
             } else {
                 alert("Upload unsuccessful, try again later.");
             }
@@ -113,6 +120,7 @@ function setbudget(input) {
         .then(function (res) {
             if (res.status == 200) {
                 alert("Budget was set successfully");
+                location.reload(); 
             } else {
                 alert("Budget could not be set, try again later.");
             }
