@@ -146,7 +146,7 @@ async function getReceiptsDashboard() {
 };
 
 function fill_recent_receipts(result) {
-  var res_keys = Object.keys(result).sort().reverse();
+  var res_keys = Object.keys(result).reverse();
   var count = 0;
   for (var key in res_keys) {
     if (count > 4) break
